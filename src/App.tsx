@@ -1,5 +1,13 @@
+import { Header } from "./components/Header";
+import { NewTask } from "./components/NewTask";
+
 function App() {
-  return <main>Bora</main>;
+  return (
+    <>
+      <Header />
+      <NewTask />
+    </>
+  );
 }
 
 export default App;
