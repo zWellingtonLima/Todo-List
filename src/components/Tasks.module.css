@@ -1,0 +1,43 @@
+.container {
+  max-width: 736px;
+  padding-top: 64px;
+  margin: 0 auto;
+
+  /* display: flex; */
+  /* flex-direction: column; */
+  /* gap: 24px; */
+}
+
+.container header {
+  display: flex;
+  justify-content: space-between;
+  font-weight: bold;
+}
+
+.container header div {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.counter {
+  font-size: 12px;
+  padding: 2px 8px;
+  border-radius: 40%;
+  background: var(--gray-400);
+  color: var(--gray-200);
+}
+
+.taskCreated {
+  color: var(--blue);
+}
+
+.taskDone {
+  color: var(--purple);
+}
+
+.tasksSection {
+  margin-top: 24px;
+  border-top: 1px solid var(--gray-400);
+  border-radius: 8px;
+}
