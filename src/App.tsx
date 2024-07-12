@@ -1,10 +1,10 @@
 import { useState } from "react";
-import { PlusCircle } from "phosphor-react";
+import { PlusCircle, Trash } from "phosphor-react";
 
 import { Header } from "./components/Header";
 import styles from "./components/NewTask.module.css";
 import taskStyles from "./components/Tasks.module.css";
-import { TasksList } from "./components/TasksList";
+import taskListStyles from "./components/TasksList.module.css";
 import { EmptyTasks } from "./components/EmptyTasks";
 
 export interface Task {
@@ -30,6 +30,30 @@ function App() {
     setInputValue("");
   }
 
+  function handleToggleTodo(id: number, isChecked: boolean) {
+    const updatedTaskList = taskList.map((task) => {
+      if (task.id === id) {
+        return { ...task, isChecked: !isChecked };
+      }
+
+      return { ...task };
+    });
+
+    setTaskList(updatedTaskList);
+    console.log(updatedTaskList);
+  }
+
+  function handleDeleteTodo(id: number) {
+    const tasksFiltered = taskList.filter((task) => task.id !== id);
+
+    setTaskList(tasksFiltered);
+  }
+
+  function log() {
+    console.log(taskList);
+    
+  }
+
   return (
     <>
       <Header />
@@ -51,7 +75,7 @@ function App() {
         <header>
           <div>
             <p className={taskStyles.taskCreated}>Tarefas criadas</p>
-            <span className={taskStyles.counter}>0</span>
+            <span className={taskStyles.counter}>{taskList.length}</span>
           </div>
 
           <div>
@@ -61,7 +85,33 @@ function App() {
         </header>
 
         <section className={taskStyles.tasksSection}>
-          {taskList.length === 0 ? <EmptyTasks /> : <TasksList />}
+          {taskList.length === 0 ? (
+            <EmptyTasks />
+          ) : (
+            taskList.map((task) => (
+              <div onClick={log} className={taskListStyles.taskList} key={task.id}>
+                <input
+                  readOnly
+                  type="checkbox"
+                  checked={task.isChecked}
+                  id={task.content}
+                />
+                <label
+                  htmlFor={task.content}
+                  onClick={() => handleToggleTodo(task.id, task.isChecked)}
+                >
+                  {task.content}
+                </label>
+
+                <button
+                  onClick={() => handleDeleteTodo(task.id)}
+                  className={taskListStyles.trashContainer}
+                >
+                  <Trash />
+                </button>
+              </div>
+            ))
+          )}
         </section>
       </section>
     </>
