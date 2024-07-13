@@ -23,7 +23,7 @@
 .counter {
   font-size: 12px;
   padding: 2px 8px;
-  border-radius: 40%;
+  border-radius: 20px;
   background: var(--gray-400);
   color: var(--gray-200);
 }

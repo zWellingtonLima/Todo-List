@@ -17,7 +17,17 @@ function App() {
   const [taskList, setTaskList] = useState<Task[]>([]);
   const [inputValue, setInputValue] = useState("");
 
-  function handleAddTask() {
+  const filteredHeaderTask = taskList.reduce((prevValue, currentValue) => {
+    if (currentValue.isChecked) {
+      return prevValue + 1;
+    }
+
+    return prevValue;
+  }, 0);
+
+  function handleAddTask(e: React.FormEvent) {
+    e.preventDefault()
+
     if (!inputValue) return;
 
     const task = {
@@ -40,7 +50,6 @@ function App() {
     });
 
     setTaskList(updatedTaskList);
-    console.log(updatedTaskList);
   }
 
   function handleDeleteTodo(id: number) {
@@ -49,27 +58,22 @@ function App() {
     setTaskList(tasksFiltered);
   }
 
-  function log() {
-    console.log(taskList);
-    
-  }
-
   return (
     <>
       <Header />
 
-      <div className={styles.container}>
+      <form className={styles.container} onSubmit={handleAddTask}>
         <input
           type="text"
           onChange={(e) => setInputValue(e.target.value)}
           placeholder="Adicione uma nova tarefa"
           value={inputValue}
         />
-        <button type="submit" onClick={handleAddTask}>
+        <button type="submit">
           Criar
           <PlusCircle size={20} weight="bold" />
         </button>
-      </div>
+      </form>
 
       <section className={taskStyles.container}>
         <header>
@@ -80,7 +84,11 @@ function App() {
 
           <div>
             <p className={taskStyles.taskDone}>Concluídas</p>
-            <span className={taskStyles.counter}>0</span>
+            <span className={taskStyles.counter}>
+              {taskList.length === 0
+                ? 0
+                : `${filteredHeaderTask} de ${taskList.length}`}
+            </span>
           </div>
         </header>
 
@@ -89,23 +97,20 @@ function App() {
             <EmptyTasks />
           ) : (
             taskList.map((task) => (
-              <div onClick={log} className={taskListStyles.taskList} key={task.id}>
+              <div className={taskListStyles.taskList} key={task.id}>
                 <input
-                  readOnly
                   type="checkbox"
                   checked={task.isChecked}
-                  id={task.content}
+                  id={String(task.id)}
+                  name={String(task.id)}
+                  onChange={() => handleToggleTodo(task.id, task.isChecked)}
                 />
-                <label
-                  htmlFor={task.content}
-                  onClick={() => handleToggleTodo(task.id, task.isChecked)}
-                >
-                  {task.content}
-                </label>
+                <label htmlFor={String(task.id)}>{task.content}</label>
 
                 <button
                   onClick={() => handleDeleteTodo(task.id)}
                   className={taskListStyles.trashContainer}
+                  title="Remover item"
                 >
                   <Trash />
                 </button>
