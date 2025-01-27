@@ -6,6 +6,7 @@ import styles from "./components/NewTask.module.css";
 import taskStyles from "./components/Tasks.module.css";
 import taskListStyles from "./components/TasksList.module.css";
 import { EmptyTasks } from "./components/EmptyTasks";
+import { useLocalStorage } from "./hooks/useLocalStorage";
 
 export interface Task {
   id: number;
@@ -14,7 +15,8 @@ export interface Task {
 }
 
 function App() {
-  const [taskList, setTaskList] = useState<Task[]>([]);
+  const [taskList, setTaskList] = useLocalStorage<Task[]>("taskList", []);
+
   const [inputValue, setInputValue] = useState("");
 
   const filteredHeaderTask = taskList.reduce((prevValue, currentValue) => {
@@ -31,6 +33,14 @@ function App() {
     setInputValue(verifyInputValue);
   }
 
+  function sortTasks(tasks: Task[]) {
+    return tasks.sort((a, b) => {
+      if (a.isChecked === b.isChecked) return 0;
+
+      return a.isChecked ? 1 : -1;
+    });
+  }
+
   function handleAddTask(e: FormEvent) {
     e.preventDefault();
 
@@ -42,7 +52,7 @@ function App() {
       isChecked: false,
     };
 
-    setTaskList((state) => [task, ...state]);
+    setTaskList((state) => sortTasks([task, ...state]));
     setInputValue("");
   }
 
@@ -52,10 +62,10 @@ function App() {
         return { ...task, isChecked: !isChecked };
       }
 
-      return { ...task };
+      return task;
     });
 
-    setTaskList(updatedTaskList);
+    setTaskList(sortTasks(updatedTaskList));
   }
 
   function handleDeleteTodo(id: number) {
