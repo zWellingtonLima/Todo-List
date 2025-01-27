@@ -1,5 +1,5 @@
  
-![Logo](https://i.imgur.com/XUzl74V.png)
+![Logo](https://github.com/zWellingtonLima/Todo-List/blob/main/public/imgCover.png)
 
 # Todo List App
 
@@ -8,7 +8,7 @@ Pequeno projeto de TodoList realizado para praticar os conceitos básicos e boas
 ## 🔥 Introdução
 
 Hey, Olá! 
-Este simples TodoList contém funcionalidades básicas de um aplicativo da categoria como adição de a fazeres, marcar e desmarcá-los assim como sua deleção. 
+Este simples TodoList contém funcionalidades básicas de um aplicativo da categoria como adição de a fazeres, marcar e desmarcá-los assim como sua deleção. Possuem também funcionalidade de salvamento automático usando o armazenamento local e uma filtragem básica caso o usuário marque algum ToDo como feito, dessa forma, o item marcado vai para o fim da lista. 
 
 ### ⚙️ Visualização da página
 **Para visualizar a página** basta clicar no link abaixo.
