@@ -5,7 +5,7 @@ export function Header() {
   return (
     <header className={styles.header}>
       <div>
-        <img src={logo} alt="" />
+        <img src={logo} alt="Logo de um foguete" />
       </div>
     </header>
   );

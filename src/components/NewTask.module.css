@@ -1,13 +1,14 @@
 .container {
   margin: 0 auto;
-  width: 736px;
+  max-width: 736px;
   margin-top: -26px;
+  padding: 0 16px;
 
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-wrap: wrap;
   gap: 8px;
-  position: relative;
 }
 
 .container input,

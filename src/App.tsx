@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, FormEvent, ChangeEvent } from "react";
 import { PlusCircle, Trash } from "phosphor-react";
 
 import { Header } from "./components/Header";
@@ -25,8 +25,14 @@ function App() {
     return prevValue;
   }, 0);
 
-  function handleAddTask(e: React.FormEvent) {
-    e.preventDefault()
+  function checkInputValue(e: ChangeEvent<HTMLInputElement>) {
+    const verifyInputValue = e.target.value.trimStart();
+
+    setInputValue(verifyInputValue);
+  }
+
+  function handleAddTask(e: FormEvent) {
+    e.preventDefault();
 
     if (!inputValue) return;
 
@@ -65,7 +71,7 @@ function App() {
       <form className={styles.container} onSubmit={handleAddTask}>
         <input
           type="text"
-          onChange={(e) => setInputValue(e.target.value)}
+          onChange={checkInputValue}
           placeholder="Adicione uma nova tarefa"
           value={inputValue}
         />
